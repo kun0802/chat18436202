@@ -2,6 +2,8 @@ package com.yychatclient.view;//°üÃû
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;//Í¼Æ¬¡¢Í¼±êµÄÀà
 import javax.swing.JButton;
@@ -12,9 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+
+import com.yychat.model.User;
+import com.yychatclient.control.ClientConnect;
 //JFrame£¨£©:ÊÇ¹¹½¨Ò»¸ö³õÊ¼Ê±²»¿É¼ûµÄĞÂ´°¿Ú
-public class ClientLogin extends JFrame{//ÀàÃû£ºClientLogin  Ä£°å£º¶ÔÏóµÄÄ£°å£¨Ò»¸öÀàÓĞºÜ¶à¸ö¶ÔÏó£©
-        //¶¨Òå±±²¿×é¼ü
+public class ClientLogin extends JFrame implements ActionListener{//ÀàÃû£ºClientLogin  Ä£°å£º¶ÔÏóµÄÄ£°å£¨Ò»¸öÀàÓĞºÜ¶à¸ö¶ÔÏó£©
+     
+
+	//¶¨Òå±±²¿×é¼ü
 	JLabel jlbl1; //¶¨Òå±êÇ©       JLabelÊÇ±êÇ©º¬ÓĞÎÄ±¾×Ö·û´®»òÍ¼±ê£¬¾ùË®Æ½¶ÔÆë
 	
 	//¶¨ÒåÖĞ²¿×é¼ş
@@ -56,6 +63,7 @@ public class ClientLogin extends JFrame{//ÀàÃû£ºClientLogin  Ä£°å£º¶ÔÏóµÄÄ£°å£¨Ò
 		
 		//´´½¨ÄÏ²¿×é½¨¼ş
 				jb1=new JButton(new ImageIcon("images/denglu.gif"));
+				jb1.addActionListener(this);
 				jb2=new JButton(new ImageIcon("images/zhuce.gif"));
 				jb3=new JButton(new ImageIcon("images/quxiao.gif"));
 				jp1=new JPanel();//´´½¨JPanel¶ÔÏó
@@ -63,6 +71,7 @@ public class ClientLogin extends JFrame{//ÀàÃû£ºClientLogin  Ä£°å£º¶ÔÏóµÄÄ£°å£¨Ò
 				this.add(jp1,"South");
 		this.setSize(350,240);//ÉèÖÃ´°¿Ú´óĞ¡
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//ÉèÖÃ´°¿ÚµÄ¹Ø±Õ  JFrame¿ÉÒÔÓÃClientLogin´úÌæ
+        this.setLocationRelativeTo(null);//½«´°¿Ú¾ÓÖĞÏÔÊ¾£¬¿ÉÓĞ¿ÉÎŞ
 		this.setVisible(true);
 		
 	}
@@ -70,5 +79,24 @@ public class ClientLogin extends JFrame{//ÀàÃû£ºClientLogin  Ä£°å£º¶ÔÏóµÄÄ£°å£¨Ò
 		ClientLogin ClientLogin = new ClientLogin();//´´½¨¶ÔÏó£¬¹¹Ôì·½·¨
 
 	}
-
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==jb1){
+			String userName=jtf1.getText().trim();
+			String passWord=new String(jpf1.getPassword());
+			//´´½¨USer¶ÔÏó
+			User user=new User();//¶ÔÏó´æ´¢¶ÑÄÚ´æ£¬ÒıÓÃ±äÁ¿´æ´¢ÔÚÕ»ÄÚ´æ
+			user.setUserName(userName);
+			user.setPassWord(passWord);
+			
+			new ClientConnect().loginValidate(user);
+			
+			new FriendList(userName);
+			this.dispose();
+			
+		}
+          
+	}
 }
+
