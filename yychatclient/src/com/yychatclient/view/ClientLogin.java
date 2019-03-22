@@ -10,11 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;//Frame带有
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
+import com.yychat.model.Message;
 import com.yychat.model.User;
 import com.yychatclient.control.ClientConnect;
 //JFrame（）:是构建一个初始时不可见的新窗口
@@ -90,10 +92,13 @@ public class ClientLogin extends JFrame implements ActionListener{//类名：Client
 			user.setUserName(userName);
 			user.setPassWord(passWord);
 			
-			new ClientConnect().loginValidate(user);
-			
-			new FriendList(userName);
-			this.dispose();
+			Message mess=new ClientConnect().loginValidate(user);
+			if(mess.getMessageType().equals(Message.message_LoginSuccess)){
+			 new FriendList(userName);
+			 this.dispose();
+			 } else {
+				 JOptionPane.showMessageDialog(this,"密码错误");
+			 }
 			
 		}
           
