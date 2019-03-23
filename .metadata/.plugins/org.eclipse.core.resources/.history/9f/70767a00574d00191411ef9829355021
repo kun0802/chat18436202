@@ -38,10 +38,10 @@ public class StartServer {
 				if(passWord.equals("123456")){//对象比较
 				
 					//告诉客户端密码验证通过的消息，可以创建一个Message类
-				     mess.setMessageType(Message.message_LoginSuccess);//"1"为验证通过
+				     mess.setMessageType("message_LoginSuccess");//"1"为验证通过
 					
 				}else{
-					mess.setMessageType(Message.message_LoginFailure);
+					mess.setMessageType("message_LoginFailure");
 				}
 				ObjectOutputStream oss=new ObjectOutputStream(s.getOutputStream());
 				oss.writeObject(mess);

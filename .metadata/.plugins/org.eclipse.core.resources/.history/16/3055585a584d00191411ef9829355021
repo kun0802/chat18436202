@@ -11,8 +11,7 @@ public class ServerReceiverThread extends Thread {
 	public ServerReceiverThread(Socket s){
 		this.s=s;
 	}
-	
-public  void  run(){
+public  void run(){
 	ObjectInputStream ois;
 	Message mess;
 	try{
