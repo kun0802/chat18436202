@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.JButton;
@@ -17,7 +18,7 @@ import javax.swing.JTextField;
 import com.yychat.model.Message;
 import com.yychatclient.control.ClientConnect;
 
-public class FriendChat extends JFrame implements ActionListener{//动作监听器
+public class FriendChat extends JFrame implements ActionListener,Runnable{//动作监听器
  
 	//中间部分
 	JScrollPane jsp;//滚动条
@@ -79,6 +80,19 @@ public class FriendChat extends JFrame implements ActionListener{//动作监听器
 		 
 	 }
 		
-	} 
-
+	}
+	@Override
+	public void run() {
+		ObjectInputStream ois;
+		try{
+			ois=new ObjectInputStream(ClientConnect.s.getInputStream());
+			Message mess=(Message)ois.readObject();
+			String showMessage=mess.getSender()+"对"+mess.getReceiver()+"说: "+mess.getContent();
+			System.out.println(showMessage);
+			jta.append(showMessage+"\r\n");		
+		}catch (IOException | ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		
+	}
 }

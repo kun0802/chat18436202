@@ -5,12 +5,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 
 import com.yychat.model.Message;
 import com.yychat.model.User;
 
 public class StartServer {
-	private static final String User = null;
+	public static HashMap hmSocket=new HashMap<String,Socket>();
 	ServerSocket ss;
 	String userName;
 	String passWord;
@@ -48,7 +49,12 @@ public class StartServer {
 				
 				
 				//不可以在这里接收聊天信息，应该要新建一个接收线程
-					new ServerReceiverThread(s).start();//
+				if(passWord.equals("123456")){
+	               hmSocket.put(userName,s);
+					new ServerReceiverThread(s).start();
+				}
+				
+					
 			}
 			
 	    } catch (IOException e) {//这个代码不一定会使用

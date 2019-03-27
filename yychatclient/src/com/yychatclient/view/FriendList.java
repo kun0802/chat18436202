@@ -171,7 +171,8 @@ import javax.swing.*;
 		if(arg0.getClickCount()==1){
 			JLabel jlbl=(JLabel)arg0.getSource();
 			String receiver=jlbl.getText();
-			new FriendChat(this.userName,receiver);
+			//new FriendChat(this.userName,receiver);
+			new Thread(new FriendChat(this.userName,receiver)).start();
 		}
 		
 		
